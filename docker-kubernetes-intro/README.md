@@ -1,7 +1,6 @@
 # First Steps Docker
-## Helpful commands
 
-Sample  `Dockerfile`
+## Sample  `Dockerfile`
 
 ```
 FROM node:10
@@ -9,6 +8,7 @@ ADD app.js /app.js
 ENTRYPOINT ["node", "app.js"]
 ```
 
+## Helpful commands
 ```
 # build an image from Dockerfile
 docker build -t kubia .
