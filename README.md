@@ -1,4 +1,4 @@
-# Chapter 1: Introduction To Kubernetes
+Introduction To Kubernetes
 ## Summary
 Moving from Monoliths to micro-services which allows components to be developed, deployed, updated and scaled independently. This allows to develop rapidly based on business needs.
 
