@@ -75,30 +75,33 @@ To show labels in List view
 
 ### Label Selector
 
-to select pod by key=value or key!=value
-`k get po -l creation_method=manual`
-`k get po -l creation_method!=manual`
+```
+# to select pod by key=value or key!=value
+k get po -l creation_method=manual
+k get po -l creation_method!=manual
 
-to select pod by key or values in key
-`k get po -l env`
-`k get po -l 'env in (prod,devel)'`
+# to select pod by key or values in key
+k get po -l env
+k get po -l 'env in (prod,devel)'
 
-To select where pod NOT have key
-`k get po -l  '!env'`
+# To select where pod NOT have key
+k get po -l  '!env'
 
-To have multiple selectors
-`k get po -l  'app=pc,rel=beta'`
+# To have multiple selectors
+k get po -l  'app=pc,rel=beta'
+```
 
 ### Using Label Selectors to categorize worker nodes
 The idea is to label nodes with special capabilities such as `GPU` for nodes that have stronger GPU cards. Then you can schedule pods to specific nodes by using `nodeSelector` in `.yaml` pod descriptor which will point to the labels assigned to the worker nodes such as `GPU` in this case.
 
-Labels a worker node with gpu=true
-`k label node gke-kubia-default-pool-274fb46e-2t2p gpu=true`
+```
+# Labels a worker node with gpu=true
+k label node gke-kubia-default-pool-274fb46e-2t2p gpu=true
 
-Using label selectors to find nodes with a label
-`k get nodes -l gpu=true`
-
-`k get nodes -L gpu`
+# Using label selectors to find nodes with a label
+k get nodes -l gpu=true
+k get nodes -L gpu
+```
 
 ### Scheduling pod to specific node
 
