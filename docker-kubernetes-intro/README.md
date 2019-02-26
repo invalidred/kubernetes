@@ -9,39 +9,41 @@ ADD app.js /app.js
 ENTRYPOINT ["node", "app.js"]
 ```
 
-### build an image from Dockerfile
+```
+# build an image from Dockerfile
 docker build -t kubia .
 
-### run kubia image in container named kubia-container in detached mode mapping external port 8080 to internal port 8080
+# run kubia image in container named kubia-container in detached mode mapping external port 8080 to internal port 8080
 docker run --name kubia-container -p 8080:8080 -d kubia
 
-### To list all running containers
+# To list all running containers
 docker ps
 
-### To inspect a running container
+# To inspect a running container
 docker inspect kubia-container
 
-### to connect to a container
+# to connect to a container
 docker exec -it kubia-container bash
 
-### to exit bash
+# to exit bash
 exit
 
 ### to stop a running container
 docker stop kubia-container
 
-### to start a contaier
+# to start a contaier
 docker start kubia-container
 
-### to remove a container
+# to remove a container
 docker rm kubia-container
 
-### to see downloaded images
+# to see downloaded images
 docker images | head
 
-### push image you need to tag with dockerId
+# push image you need to tag with dockerId
 docker tag kubia abdulask/kubia
 docker push abdulask/kubia
+```
 
 
 # First Steps Kubernetes
