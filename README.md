@@ -43,6 +43,5 @@ These are Nodes that run your containerized components.
 - `Kublet`talks to `API server` and manages containers on it node
 - `kube-proxy` load-balances network traffic amongst app components
 
-#kb/books/kubernetes_in_action/Chapter_1
 
 
