@@ -145,3 +145,31 @@ kubectl exec -it mongodb mongo
 > db.foo.find()
 ``` 
 
+## Dynamic provisioning of PersistentVolumes
+Creating a _PersistentVolume_ requires a sys admin to provision some storage before it can be claimed using _PersistenVolumeClaim_. However Kubernetes can to the provisioning of volume automatically. The sys admin instead of creating a _PersistentVolume_ can deploy a PersistentVolume Provisioner and define one of more _StorageClass_ object to let users choose the type of _PersistenVolume_ they want. The use can then choose the _StorageClass_ in theier _PersistentVolumeClaim_ and the provisioner will take into account when provisioning the persistent storage.
+
+```
+# create StorageClass definition. Check `storageclass-fast-gcepd.yaml`
+kubectl create -f storageclass-fast-gcepd.yaml
+
+# request a StorageClass in _PVC_. Check `mongodb-pvc-dp.yaml`
+kubectl create -f mongodb-pvc-dp.yaml
+
+# check _PVC_ and dynamically provisioned _PV_
+kubectl get pv
+
+# check all disk on the cluster
+gcloud compute disks list
+
+# get a list of all StorageClass available
+kubectl get sc
+
+# view defintion of default Standard StorageClass on GKE
+kubectl get sc standard -o yaml
+
+# create a _PVC_ without specifying a storage class. Check `mongodb-pvc-dp-nostorageclass.yaml`
+# Note the standard StorageClass will be used by default (unless default is set to another StorageClass)
+kubectl create -f mongodb-pvc-dp-nostorageclass.yaml
+```
+
+
