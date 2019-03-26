@@ -76,3 +76,35 @@ kubectl rollout pause deployment kubia
 # resume rollout
 kubectl rollout resume deployment kubia
 ```
+
+## Blocking Rollout of bad versions
+You can use the _minReadySeconds_ along with readiness probe to help prevent code that crashed to get deployed to production. The way it works is; _minReadySeconds_ of 10 for example waits for 10 seconds before the Pod is considered ready and the next pod(s) can be removed and/or added. However if the _readiness probe_ is set to 1s and if the _readiness probe_ fails 5 consequtive times then the Pod will not be deployed and the previous version of the Pod will still run in production.
+
+```
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kubia
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      name: kubia
+      labels:
+        app: kubia
+    spec:
+      containers:
+      - image: luksa/kubia:v3
+      name: nodejs
+      readinessProbe:
+        periodSeconds: 1
+        httpGet:
+          path: /
+          port: 8080
+```
